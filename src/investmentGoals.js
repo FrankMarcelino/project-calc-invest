@@ -32,16 +32,26 @@ function generateReturnArrays(
     totalAmount: startingAmount,
   };
 
-  const returnArray = [referenceInvestmentObject,];
+  const returnsArray = [referenceInvestmentObject,];
   for (
     let timeReference = 1;
     timeReference <= finalTimeHorizon;
     timeReference++
   ) {
     const totalAmount =
-      returnArray[timeReference - 1].totalAmount * finalReturnRate +
+      returnsArray[timeReference - 1].totalAmount * finalReturnRate +
       monthlyContribution;
-    const interestReturns = returnArray[timeReference - 1].totalAmount * finalReturnRate;
-    const ivestedAmount = startingAmount + monthlyContribution * timeReference;
+    const interestReturns = returnsArray[timeReference - 1].totalAmount * finalReturnRate;
+    const investedAmount = startingAmount + monthlyContribution * timeReference;
+    const totalInterestReturn = totalAmount - investedAmount;
+    returnsArray.push({
+      investedAmount,
+      interestReturns,
+      totalInterestReturn,
+      month: timeReference,
+      totalAmount,
+    }) 
   }
 }
+
+return returnsArray;
