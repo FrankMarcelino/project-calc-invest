@@ -6,7 +6,9 @@ const form = document.getElementById('investment-form');
 
 function renderProgression(evt) {
   evt.preventDefault();
-  
+  if (document.querySelector('.error')) {
+    return;
+  }
   const startingAmountEl = Number(
     document.getElementById('starting-amount').value.replace(',', '.'),
   );
