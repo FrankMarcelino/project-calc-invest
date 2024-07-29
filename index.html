@@ -118,8 +118,18 @@
       class="bg-white rounded-lg w-2/6 font-bold hover:bg-black hover:text-white">Limpar</button>
     </div>
   </aside>
-  <main>
-    <p>Resultado</p>
+  <main class="h-full">
+    <section id="charts-container">
+      <div class="h-[36dvh]">
+        <p>Recultado Final</p>
+        <canvas id="final-money-distribution"></canvas>
+      </div>
+      <div class="h-[56dvh]">
+        <p>Progresão</p>
+        <canvas id="progression"></canvas>
+      </div>
+    </section>
+     
   </main>
   <script type="module" src="./main.js"></script>
 </body> 
