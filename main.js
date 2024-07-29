@@ -47,7 +47,7 @@ function renderProgression(evt) {
   );
 
   const finalInvestmentObject = returnsArray[returnsArray.length - 1];
-
+  console.log(returnsArray)
   new Chart(finalMoneyChart, {
     type: 'doughnut',
     data:  {
@@ -72,6 +72,35 @@ function renderProgression(evt) {
       ],
     },
   });
+
+  new Chart(progressionChart, {
+    type: 'bar',
+    data: {
+      labels: returnsArray.map((item) => item.month),
+      datasets: [
+        {
+          label: 'Total Investido',
+          data: returnsArray.map((item) => formatCurrency(item.investedAmount)),
+          backgroundColor: 'rgb(255, 99, 132)',
+        }, {
+          label: 'Redimento',
+          data: returnsArray.map((item) => formatCurrency(item.totalInterestReturn)),
+          backgroundColor: 'rgb(54, 162, 235)',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true
+        }
+      }
+    }
+  })
 }
 
 function clearForm(evt) {
