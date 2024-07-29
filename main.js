@@ -3,6 +3,7 @@ import { generateReturnArrays } from './src/investmentGoals.js';
 
 const calculateButton = document.getElementById('calculate-results');
 const form = document.getElementById('investment-form');
+const clearFormButton = document.getElementById('clear-form');
 
 function renderProgression(evt) {
   evt.preventDefault();
@@ -40,6 +41,22 @@ function renderProgression(evt) {
   console.log(returnsArray);
 }
 
+function clearForm(evt) {
+  form['starting-amount'].value = '';
+  form['additional-contribution'].value = '';
+  form['time-amount'].value = '';
+  form['time-amount-period'].value = 'monthly';
+  form['envaluation-period'].value = 'monthly';
+  form['return-rate'].value = '';
+  form['tax-rate'].value = '';
+
+  const errorInputsContainers = document.querySelectorAll('.error');
+  for (const errorInputsContainer of errorInputsContainers) {
+    errorInputsContainer.classList.remove('error');
+    errorInputsContainer.parentElement.querySelector('p').remove();
+  }
+}
+
 function validateInput(evt) {
   if (evt.target.value === '') {
     return;
@@ -68,4 +85,5 @@ for (const formElement of form) {
 }
 
 form.addEventListener('submit', renderProgression);
+clearFormButton.addEventListener('click', clearForm);
 
