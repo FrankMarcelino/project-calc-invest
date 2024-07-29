@@ -24,4 +24,10 @@ function renderProgression() {
   console.log(returnsArray);
 }
 
+function validateImput() {
+  for (const formElement of form){
+    
+  }
+}
+
 calculateButton.addEventListener('click', renderProgression);
