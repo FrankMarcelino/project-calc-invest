@@ -14,7 +14,7 @@
     <form id="investment-form" class="w-full">
       <div class="flex w-full flex-col px-6 m-2 h-[4.25rem]">
         <label class="text-white font-bold" for="starting-amount">Investimento Inicial</label>
-        <div class="flex error">
+        <div class="flex">
           <input class="rounded-l-lg w-1/6 text-center" 
           type="text" 
           value="R$" 
@@ -28,7 +28,6 @@
           required
           >
         </div>
-        <p class="text-red-500">Insira um valor numerico e maior que zero</p>
       </div>
       <div class="flex w-full flex-col px-6 m-2 h-[4.25rem]">
         <label 
@@ -111,7 +110,8 @@
     <div class="flex h-12 px-6 my-8 justify-between gap-2">
       <button 
       id="calculate-results"
-      form="investment-form" 
+      form="investment-form"
+      type="submit" 
       class="bg-gray-500 text-white rounded-lg w-4/6 font-bold hover:bg-black hover:text-white">Calcular</button>
       <button 
       id="clear-results" 
