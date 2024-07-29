@@ -47,12 +47,15 @@ function validateInput(evt) {
   const grandParentElement = evt.target.parentElement.parentElement;
   const inputValue = evt.target.value.replace(',', '.');
 
-  if (isNaN(inputValue) || Number(inputValue) < 0) {
+  if (!parentElement.classList.contains('error') && isNaN(inputValue) || Number(inputValue) < 0) {
     const errorTextElement = document.createElement('p');
     errorTextElement.classList.add('text-red-500');
     errorTextElement.textContent = 'Insira um valor numerico e maior que zero';
     parentElement.classList.add('error');
     grandParentElement.appendChild(errorTextElement);
+  }else if (parentElement.classList.contains('error') && !isNaN(inputValue) || Number(inputValue) > 0) {
+    parentElement.classList.remove('error');
+    grandParentElement.removeChild(grandParentElement.lastChild);
   }
 }
 
