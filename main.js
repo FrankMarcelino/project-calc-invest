@@ -80,15 +80,15 @@ function renderProgression(evt) {
   progressionChartReference =  new Chart(progressionChart, {
     type: 'bar',
     data: {
-      labels: returnsArray.map((item) => item.month),
+      labels: returnsArray.map((investmentObject) => investmentObject.month),
       datasets: [
         {
           label: 'Total Investido',
-          data: returnsArray.map((item) => formatCurrency(item.investedAmount)),
+          data: returnsArray.map((investmentObject) => formatCurrency(investmentObject.investedAmount)),
           backgroundColor: 'rgb(255, 99, 132)',
         }, {
           label: 'Redimento',
-          data: returnsArray.map((item) => formatCurrency(item.totalInterestReturn)),
+          data: returnsArray.map((investmentObject) => formatCurrency(investmentObject.totalInterestReturn)),
           backgroundColor: 'rgb(54, 162, 235)',
         },
       ],
