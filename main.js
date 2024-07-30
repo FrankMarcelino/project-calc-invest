@@ -163,6 +163,6 @@ for (const formElement of form) {
   }
 }
 
-form.addEventListener('submit', renderProgression);
+// form.addEventListener('submit', renderProgression);
 clearFormButton.addEventListener('click', clearForm);
 
