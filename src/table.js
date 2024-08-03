@@ -2,7 +2,7 @@ const isNonEmptyArray = (arrayElement) => {
   return Array.isArray(arrayElement)&& arrayElement.length > 0;
 };
 
-const createTable = (columnsArray, dataArray, tableId) => {
+export const createTable = (columnsArray, dataArray, tableId) => {
     if(
       !isNonEmptyArray(columnsArray) || 
       !isNonEmptyArray(dataArray) || 
@@ -19,12 +19,41 @@ const createTable = (columnsArray, dataArray, tableId) => {
       );
     }
 
-    createTableHead(tableElement, columnsArray);
-    createTableBody(tableElement, dataArray);
+    createTableHeader(tableElement, columnsArray);
+    createTableBody(tableReference, dataArray, columnsArray);
 };
 
-function createTableHead(tableElement, columnsArray) {
-  const tableHead = document.createElement('thead');
-  const tableHeadRow = document.createElement('tr');
+function createTableHeader(tableReference, columnsArray) {
+  function createTheadElement(tableReference) {
+    const thead = document.createElement('thead');
+    tableReference.appendChild(thead);
+    return thead;
+  }
+  const tableHeaderReference = 
+    tableReference.querySelector('thead') ?? createTheadElement(tableReference);
+  const headerRow = document.createElement('tr');
+  for (const tableColumnObject of columnsArray) {
+    const headerElemt = `<th class="text-center">${tableColumnObject.columnLabel}</th>`;
+    headerRow.innerHTML += headerElemt;
+  }
+  tableHeaderReference.appendChild(headerRow);
+}
+function createTableBody(tableReference, tableItems, columnsArray) {
+  function createTbodyElement(tableReference) {
+    const tbody = document.createElement('tbody');
+    tableReference.appendChild(tbody);
+    return tbody;
+  }
+  const tableBodyReference =
+    tableReference.querySelector('tbody') ?? createTbodyElement(tableReference);
 
-  for (const column of columnsArray) {  
+  for (const [iteIndex, tableItem] of tableItems.entries()) {
+    const tableRow = document.createElement('tr');
+
+    for (const tableColumn of columnsArray) {
+      tableRow.innerHTML += `<td class="text-center">${tableItem[tableColumn.accessor]}</td>`;
+    }
+    tableBodyReference.appendChild(tableRow);
+  }
+}
+
