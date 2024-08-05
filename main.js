@@ -14,15 +14,15 @@ let doughnutChartReference = {};
 let progressionChartReference = {};
 
 const columnsArray = [
+  {columnLabel: "Mês", accessor: "month"},
   {columnLabel: "Total investido", accessor: "investedAmount"},
   {columnLabel: "Rendimento mensal", accessor: "interestReturns"},
   {columnLabel: "Rendimento total", accessor: "totalInterestReturn"},
-  {columnLabel: "Mês", accessor: "month"},
   {columnLabel: "Total", accessor: "totalAmount"},
 ];
 
 function formatCurrency(value) {
-  return value.toFixed(2);
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 function renderProgression(evt) {
