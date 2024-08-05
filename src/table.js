@@ -32,6 +32,9 @@ function createTableHeader(tableReference, columnsArray) {
   const tableHeaderReference = 
     tableReference.querySelector('thead') ?? createTheadElement(tableReference);
   const headerRow = document.createElement('tr');
+  ['bg-blue-900', 'text-slate-200', 'sticky', 'top-0'].forEach((className) => 
+    headerRow.classList.add(className)
+  );
   for (const tableColumnObject of columnsArray) {
     const headerElemt = `<th class="text-center">${tableColumnObject.columnLabel}</th>`;
     headerRow.innerHTML += headerElemt;
@@ -50,7 +53,9 @@ function createTableBody(tableReference, tableItems, columnsArray) {
 
   for (const [itemIndex, tableItem] of tableItems.entries()) {
     const tableRow = document.createElement('tr');
-
+    if (itemIndex % 2 === 0) {
+      tableRow.classList.add('bg-slate-100');
+    }
     for (const tableColumn of columnsArray) {
       const formatFn = tableColumn.format ?? ((info) => info);
       tableRow.innerHTML += `<td class="text-center">${formatFn(tableItem[tableColumn.accessor])}</td>`;
