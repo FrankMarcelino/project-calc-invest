@@ -40,16 +40,14 @@ const columnsArray = [
   },
 ];
 
-function replaceUndefinedWithZero(value) {
-  return value == 'undefined' ? value : 'R$ 0,00';
-}
 
 function formatCurrency(value) {
-  if (typeof value !== 'number') {
-    replaceUndefinedWithZero(value);
+  if (value == undefined) {
+    value = 'R$ 0,00';
   } else {
-    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    value = value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
   }
+  return value
 }
 
 function renderProgression(evt) {
