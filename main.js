@@ -1,28 +1,55 @@
 import { Input } from 'postcss';
 import { generateReturnArrays } from './src/investmentGoals.js';
-import { Chart } from 'chart.js/auto';
 import { createTable } from './src/table.js';
+import { Chart } from 'chart.js/auto';
 
 const finalMoneyChart = document.getElementById('final-money-distribution');
 const progressionChart = document.getElementById('progression');
-
-// const calculateButton = document.getElementById('calculate-results');
 const form = document.getElementById('investment-form');
 const clearFormButton = document.getElementById('clear-form');
+// const calculateButton = document.getElementById('calculate-results');
+
 
 let doughnutChartReference = {};
 let progressionChartReference = {};
 
 const columnsArray = [
-  {columnLabel: "Mês", accessor: "month"},
-  {columnLabel: "Total investido", accessor: "investedAmount"},
-  {columnLabel: "Rendimento mensal", accessor: "interestReturns"},
-  {columnLabel: "Rendimento total", accessor: "totalInterestReturn"},
-  {columnLabel: "Total", accessor: "totalAmount"},
+  {
+    columnLabel: "Mês", 
+    accessor: "month",
+  },
+  {
+    columnLabel: "Total investido", 
+    accessor: "investedAmount", 
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Rendimento mensal", 
+    accessor: "interestReturns",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Rendimento total", 
+    accessor: "totalInterestReturn",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Total", 
+    accessor: "totalAmount",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
 ];
 
+function replaceUndefinedWithZero(value) {
+  return value == 'undefined' ? value : 'R$ 0,00';
+}
+
 function formatCurrency(value) {
-  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  if (typeof value !== 'number') {
+    replaceUndefinedWithZero(value);
+  } else {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+  }
 }
 
 function renderProgression(evt) {
@@ -116,6 +143,7 @@ function renderProgression(evt) {
 //   })
 
   createTable(columnsArray, returnsArray, 'results-table');
+  console.log(returnsArray[returnsArray.length - 1]);
 }
 
 function isOjectEmpty(obj) {
