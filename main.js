@@ -1,6 +1,7 @@
 import { Input } from 'postcss';
 import { generateReturnArrays } from './src/investmentGoals.js';
 import { Chart } from 'chart.js/auto';
+import { createTable } from './src/table.js';
 
 const finalMoneyChart = document.getElementById('final-money-distribution');
 const progressionChart = document.getElementById('progression');
@@ -60,7 +61,7 @@ function renderProgression(evt) {
 
 //   const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 //   console.log(returnsArray)
-//   doughnutChartReference = new Chart(finalMoneyChart, {
+// doughnutChartReference = new Chart(finalMoneyChart, {
 //     type: 'doughnut',
 //     data:  {
 //       labels: [
@@ -113,7 +114,9 @@ function renderProgression(evt) {
 //       }
 //     }
 //   })
-// }
+
+  createTable(columnsArray, returnsArray, 'results-table');
+}
 
 function isOjectEmpty(obj) {
   return Object.keys(obj).length === 0;
@@ -173,4 +176,3 @@ for (const formElement of form) {
 
 form.addEventListener('submit', renderProgression);
 clearFormButton.addEventListener('click', clearForm);
-

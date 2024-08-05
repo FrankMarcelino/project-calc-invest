@@ -12,7 +12,7 @@ export const createTable = (columnsArray, dataArray, tableId) => {
         'Para a correeta execução, precisamos de um array com as conlunas e outro com as linhas.'
       );
     }
-    const tableElement = document.createElement('tableId');
+    const tableElement = document.getElementById(tableId);
     if(!tableElement || tableElement.nodeName !== 'TABLE'){
       throw new Error(
         'Id informado nao corresponde a nenhum elemento table.'
@@ -20,7 +20,7 @@ export const createTable = (columnsArray, dataArray, tableId) => {
     }
 
     createTableHeader(tableElement, columnsArray);
-    createTableBody(tableReference, dataArray, columnsArray);
+    createTableBody(tableElement, dataArray, columnsArray);
 };
 
 function createTableHeader(tableReference, columnsArray) {
