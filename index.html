@@ -119,23 +119,27 @@
     </div>
   </aside>
   <main class="row-span-2 col-span-2">
-    <section id="charts-container" class="h-full">
-      <div class="h-[36%] flex flex-col items-center pb-10">
-        <p class="font-bold text-lg">Resultado Final</p>
-        <canvas id="final-money-distribution"></canvas>
-      </div>
-      <div class="h-[56%] flex flex-col items-center">
-        <p class="font-bold text-lg">Progresão</p>
-        <canvas id="progression"></canvas>
-      </div>
-    </section>   
-    <section id="table-container" class="h-full overflow-y-auto">
-      <p class="font-bold text-lg text-center">Resultados Mensais</p>
-      <table id="results-table"
-        class="w-full text-center text-sm text-gray-500 dark:text-gray-900">
-
-      </table>
-    </section>
+    <div id="carousel-container" 
+      class="h-full w-full flex overflow-x-auto">
+      <section id="charts-container" 
+        class="h-full basis-full shrink-0">
+        <div class="h-[36%] flex flex-col items-center pb-10">
+          <p class="font-bold text-lg">Resultado Final</p>
+          <canvas id="final-money-distribution"></canvas>
+        </div>
+        <div class="h-[56%] flex flex-col items-center">
+          <p class="font-bold text-lg">Progresão</p>
+          <canvas id="progression"></canvas>
+        </div>
+      </section>
+      <section id="table-container" 
+        class="h-full overflow-y-auto basis-full shrink-0">
+        <p class="font-bold text-lg text-center">Resultados Mensais</p>
+        <table id="results-table"
+          class="w-full text-center text-sm text-gray-500 dark:text-gray-900">
+        </table>
+      </section>
+    </div>
   </main>
   <script type="module" src="./main.js"></script>
 </body> 
