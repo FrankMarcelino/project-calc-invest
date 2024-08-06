@@ -26,7 +26,7 @@ export function generateReturnArrays(
 
   const referenceInvestmentObject = {
     investedAmount: startingAmount,
-    interrestReturn: 0,
+    interestReturns: 0,
     totalInterestReturn: 0,
     month: 0,
     totalAmount: startingAmount,

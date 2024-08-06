@@ -9,45 +9,45 @@ const form = document.getElementById('investment-form');
 const clearFormButton = document.getElementById('clear-form');
 // const calculateButton = document.getElementById('calculate-results');
 
-
 let doughnutChartReference = {};
 let progressionChartReference = {};
 
 const columnsArray = [
   {
-    columnLabel: "Mês", 
-    accessor: "month",
+    columnLabel: 'Mês',
+    accessor: 'month',
   },
   {
-    columnLabel: "Total investido", 
-    accessor: "investedAmount", 
-    format: (numberInfo) => formatCurrency(numberInfo),
+    columnLabel: 'Total investido',
+    accessor: 'investedAmount',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
   },
   {
-    columnLabel: "Rendimento mensal", 
-    accessor: "interestReturns",
-    format: (numberInfo) => formatCurrency(numberInfo),
+    columnLabel: 'Rendimento mensal',
+    accessor: 'interestReturns',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
   },
   {
-    columnLabel: "Rendimento total", 
-    accessor: "totalInterestReturn",
-    format: (numberInfo) => formatCurrency(numberInfo),
+    columnLabel: 'Rendimento total',
+    accessor: 'totalInterestReturn',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
   },
   {
-    columnLabel: "Total", 
-    accessor: "totalAmount",
-    format: (numberInfo) => formatCurrency(numberInfo),
+    columnLabel: 'Total',
+    accessor: 'totalAmount',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
   },
 ];
 
+function formatCurrencyToGraph(value) {
+  return value.toFixed(2);
+}
 
-function formatCurrency(value) {
-  if (value == undefined) {
-    value = 'R$ 0,00';
-  } else {
-    value = value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-  }
-  return value
+function formatCurrencyToTable(value) {
+  return value.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
 }
 
 function renderProgression(evt) {
@@ -84,61 +84,67 @@ function renderProgression(evt) {
     taxRateEl,
   );
 
-//   const finalInvestmentObject = returnsArray[returnsArray.length - 1];
-//   console.log(returnsArray)
-// doughnutChartReference = new Chart(finalMoneyChart, {
-//     type: 'doughnut',
-//     data:  {
-//       labels: [
-//         'Total investido',
-//         'Redimento',
-//         'Imposto sobre lucro',
-//       ],
-//       datasets: [
-//         {
-//         data: [
-//           formatCurrency(finalInvestmentObject.investedAmount), 
-//           formatCurrency(finalInvestmentObject.totalInterestReturn * (1 - taxRateEl/100)), 
-//           formatCurrency(finalInvestmentObject.totalInterestReturn * (taxRateEl/100))],
-//         backgroundColor: [
-//           'rgb(255, 99, 132)',
-//           'rgb(54, 162, 235)',
-//           'rgb(255, 205, 86)'
-//         ],
-//         hoverOffset: 4
-//         },
-//       ],
-//     },
-//   });
+  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 
-//   progressionChartReference =  new Chart(progressionChart, {
-//     type: 'bar',
-//     data: {
-//       labels: returnsArray.map((investmentObject) => investmentObject.month),
-//       datasets: [
-//         {
-//           label: 'Total Investido',
-//           data: returnsArray.map((investmentObject) => formatCurrency(investmentObject.investedAmount)),
-//           backgroundColor: 'rgb(255, 99, 132)',
-//         }, {
-//           label: 'Redimento',
-//           data: returnsArray.map((investmentObject) => formatCurrency(investmentObject.totalInterestReturn)),
-//           backgroundColor: 'rgb(54, 162, 235)',
-//         },
-//       ],
-//     },
-//     options: {
-//       responsive: true,
-//       scales: {
-//         x: {
-//           stacked: true,
-//         },
-//         y: {
-//           stacked: true
-//         }
-//       }
-//     }
-//   })
+  doughnutChartReference = new Chart(finalMoneyChart, {
+    type: 'doughnut',
+    data: {
+      labels: ['Total investido', 'Redimento', 'Imposto sobre lucro'],
+      datasets: [
+        {
+          data: [
+            formatCurrencyToGraph(finalInvestmentObject.investedAmount),
+            formatCurrencyToGraph(
+              finalInvestmentObject.totalInterestReturn * (1 - taxRateEl / 100),
+            ),
+            formatCurrencyToGraph(
+              finalInvestmentObject.totalInterestReturn * (taxRateEl / 100),
+            ),
+          ],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  });
+
+  progressionChartReference = new Chart(progressionChart, {
+    type: 'bar',
+    data: {
+      labels: returnsArray.map((investmentObject) => investmentObject.month),
+      datasets: [
+        {
+          label: 'Total Investido',
+          data: returnsArray.map((investmentObject) =>
+            formatCurrencyToGraph(investmentObject.investedAmount),
+          ),
+          backgroundColor: 'rgb(255, 99, 132)',
+        },
+        {
+          label: 'Redimento',
+          data: returnsArray.map((investmentObject) =>
+            formatCurrencyToGraph(investmentObject.interestReturns),
+          ),
+          backgroundColor: 'rgb(54, 162, 235)',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        },
+      },
+    },
+  });
 
   createTable(columnsArray, returnsArray, 'results-table');
   console.log(returnsArray[returnsArray.length - 1]);
@@ -148,8 +154,11 @@ function isOjectEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
 
-function resetChart(){
-  if (!isOjectEmpty(doughnutChartReference) && !isOjectEmpty(progressionChartReference)) {
+function resetChart() {
+  if (
+    !isOjectEmpty(doughnutChartReference) &&
+    !isOjectEmpty(progressionChartReference)
+  ) {
     doughnutChartReference.destroy();
     progressionChartReference.destroy();
   }
@@ -182,13 +191,19 @@ function validateInput(evt) {
   const grandParentElement = evt.target.parentElement.parentElement;
   const inputValue = evt.target.value.replace(',', '.');
 
-  if (!parentElement.classList.contains('error') && isNaN(inputValue) || Number(inputValue) < 0) {
+  if (
+    (!parentElement.classList.contains('error') && isNaN(inputValue)) ||
+    Number(inputValue) < 0
+  ) {
     const errorTextElement = document.createElement('p');
     errorTextElement.classList.add('text-red-500');
     errorTextElement.textContent = 'Insira um valor numerico e maior que zero';
     parentElement.classList.add('error');
     grandParentElement.appendChild(errorTextElement);
-  }else if (parentElement.classList.contains('error') && !isNaN(inputValue) || Number(inputValue) > 0) {
+  } else if (
+    (parentElement.classList.contains('error') && !isNaN(inputValue)) ||
+    Number(inputValue) > 0
+  ) {
     parentElement.classList.remove('error');
     grandParentElement.removeChild(grandParentElement.lastChild);
   }
