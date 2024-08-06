@@ -118,7 +118,15 @@
       class="bg-white rounded-lg w-2/6 font-bold hover:bg-black hover:text-white">Limpar</button>
     </div>
   </aside>
-  <main class="row-span-2 col-span-2">
+  <main class="row-span-2 col-span-2 col-span-2 relative">
+    <button id="slide-arrow-previous" 
+      class="absolute top-[40%] left-0 text-7xl cursor-pointer opacity-50 w-8 hover:opacity-100 focus:opacity-100">
+      &#8249;
+    </button>
+    <button id="slide-arrow-next " 
+      class="absolute top-[40%] right-0 text-7xl cursor-pointer opacity-50  w-8 hover:opacity-100 focus:opacity-100">
+      &#8250;
+    </button>
     <div id="carousel-container" 
       class="h-full w-full flex overflow-x-auto">
       <section id="charts-container" 
