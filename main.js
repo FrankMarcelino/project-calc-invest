@@ -215,5 +215,18 @@ for (const formElement of form) {
   }
 }
 
+const mainEl = document.querySelector('main');
+const carouselEl = document.getElementById('carousel-container');
+const nextButtonEl = document.getElementById('slide-arrow-next');
+const previousButtonEl = document.getElementById('slide-arrow-previous');
+
+nextButtonEl.addEventListener('click', () => {
+  carouselEl.scrollLeft += mainEl.clientWidth;
+});
+
+previousButtonEl.addEventListener('click', () => {
+  carouselEl.scrollLeft -= mainEl.clientWidth;
+});
+
 form.addEventListener('submit', renderProgression);
 clearFormButton.addEventListener('click', clearForm);
